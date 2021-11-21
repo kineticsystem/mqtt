@@ -3,13 +3,9 @@
 
 #include <iostream>
 
-namespace {
-
-constexpr auto DFLT_SERVER_ADDRESS = "tcp://localhost:1883";
+constexpr auto DEFAULT_SERVER_ADDRESS = "tcp://localhost:1883";
 constexpr auto CLIENT_ID = "paho_cpp_async_publish";
 constexpr auto TOPIC = "test";
-
-} // namespace
 
 /**
  * Send a Protobuf message to an MQTT message broker.
@@ -30,7 +26,7 @@ int main() {
   sensor.set_door(Sensor_SwitchLevel_OPEN);
 
   // Initialize a client.
-  protobuf::AsynchClient<Sensor> client(DFLT_SERVER_ADDRESS, CLIENT_ID, TOPIC);
+  protobuf::AsynchClient client(DEFAULT_SERVER_ADDRESS, CLIENT_ID, TOPIC);
 
   // Connect to the MQTT broker, send a message and disconnect.
   try {

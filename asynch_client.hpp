@@ -2,53 +2,48 @@
 
 #include "mqtt/async_client.h"
 
-#include <iostream>
+#include <google/protobuf/message.h>
+
 #include <string>
 #include <vector>
-
-namespace {
-constexpr int QOS = 1;
-constexpr auto TIMEOUT = std::chrono::seconds(10);
-} // namespace
 
 namespace protobuf {
 
 /**
  * This is a client to send a Protobuf message to the MQTT broker.
  */
-template <class Protobuf> class AsynchClient {
+class AsynchClient {
 public:
-  AsynchClient<Protobuf>(const std::string &serverURI,
-                         const std::string &clientId, const std::string &topic)
-      : client_{mqtt::async_client{serverURI, clientId}}, topic_{topic} {
+  AsynchClient(const std::string &serverURI, const std::string &clientId,
+               const std::string &topic);
 
-    connection_opts_ =
-        mqtt::connect_options_builder().clean_session().finalize();
-  }
+  /**
+   * @brief Connect to the MQTT message broker.
+   */
+  void connect();
 
-  void connect() { client_.connect(connection_opts_)->wait(); }
-
+  /**
+   * @brief Disconnect from the MQTT message broker.
+   */
   void disconnect() { client_.disconnect()->wait(); }
 
-  void publish(const Protobuf &message) {
-
-    // Resize the buffer to fit the message.
-    const int size = message.ByteSizeLong();
-    if (size > buffer_.size()) {
-      buffer_.resize(size);
-    }
-    message.SerializeToArray(buffer_.data(), buffer_.size());
-
-    mqtt::message_ptr pubmsg =
-        mqtt::make_message(topic_, buffer_.data(), buffer_.size());
-    pubmsg->set_qos(QOS);
-    client_.publish(pubmsg)->wait_for(TIMEOUT);
-  }
+  /**
+   * @brief Publish a message to the MQTT message broker.
+   * @param message The Protobuf message to send.
+   */
+  void publish(const ::google::protobuf::Message &message);
 
 private:
+  // The topic to publish the message to.
   std::string topic_;
+
+  // A buffer used to serialize the protobuf message.
   std::vector<uint8_t> buffer_;
+
+  // MQTT connection options.
   mqtt::connect_options connection_opts_;
+
+  // The MQTT client.
   mqtt::async_client client_;
 };
 } // namespace protobuf
