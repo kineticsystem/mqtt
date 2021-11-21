@@ -1,4 +1,6 @@
-# MQTT + Protobuf application.
+# MQTT + Protobuf application
+
+This is an example of a client sending a Protobuf message over MQTT. For this implementation I've used Mosquitto message broker, MQTT Paho C++ library and Google Protobuf library.
 
 ## Definitions
 
