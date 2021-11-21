@@ -14,8 +14,12 @@ namespace protobuf {
  */
 class AsynchClient {
 public:
-  AsynchClient(const std::string &serverURI, const std::string &clientId,
-               const std::string &topic);
+  /**
+   * @brief A client to send a Protobuf message to the MQTT broker.
+   * @param serverURI The HQTT server broker URI.
+   * @param clientId A client global unique identifier.
+   */
+  AsynchClient(const std::string &serverURI, const std::string &clientId);
 
   /**
    * @brief Connect to the MQTT message broker.
@@ -30,13 +34,12 @@ public:
   /**
    * @brief Publish a message to the MQTT message broker.
    * @param message The Protobuf message to send.
+   * @param topic The topic to send the Protobuf message to.
    */
-  void publish(const ::google::protobuf::Message &message);
+  void publish(const ::google::protobuf::Message &message,
+               const std::string &topic);
 
 private:
-  // The topic to publish the message to.
-  std::string topic_;
-
   // A buffer used to serialize the protobuf message.
   std::vector<uint8_t> buffer_;
 
