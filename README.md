@@ -30,6 +30,16 @@ To install Mosquitto on Ubuntu 20.04 run the following command:
 
 ```sudo apt install mosquitto mosquitto-clients```
 
+To test if mosquitto is working, open a teminal and execute the following:
+
+```mosquitto_sub -h localhost -t test```
+
+Then open another terminal and run the following:
+
+```mosquitto_pub -h localhost -t test -m "hello world"```
+
+A message "hello world" should be displayed on the subsriber terminal.
+
 ### Paho installation
 
 There is no ready library for Ubuntu. We must compile the C library first and the the C++ library. For the C library run the following commands.
