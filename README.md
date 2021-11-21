@@ -74,5 +74,5 @@ sudo ldconfig
 The following article describes a solution implemented with ROS Kinetic, Mosquitto and mqtt_bridge using JSON over MQTT.
 MQTT has been used as a communication protocol to provide a layer of security to ROS.
 
-[A novel solution for securing robot communications based on the MQTT protocol and ROS](https://www.researchgate.net/publication/331558649_A_novel_solution_for_securing_robot_communications_based_on_the_MQTT_protocol_and_ROS)
+[A novel solution for securing robot communications based on the MQTT protocol and ROS](https://www.researchgate.net/profile/Micael-Couceiro/publication/331558649_A_novel_solution_for_securing_robot_communications_based_on_the_MQTT_protocol_and_ROS/links/5c80163892851c69505c5fed/A-novel-solution-for-securing-robot-communications-based-on-the-MQTT-protocol-and-ROS.pdf)
 
