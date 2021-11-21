@@ -8,11 +8,15 @@ project(mqtt LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set (THREADS_PREFER_PTHREAD_FLAG ON)
+
 # Add directory containing protobuffer message definitions.
 add_subdirectory(proto)
 
-# Find required libraries.
-find_package(Protobuf REQUIRED)
+# Libraries.
+find_package(Protobuf REQUIRED) # Protobuf library.
+find_package(PahoMqttCpp)       # Paho MQTT client library
+find_package(Threads REQUIRED)  # PThread library required by both Protobuf and Paho.
 
 # Include directories.
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
@@ -25,4 +29,5 @@ add_executable(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     proto
     ${PROTOBUF_LIBRARY}
+    ${PAHO_CPP_LIB}
     pthread)
