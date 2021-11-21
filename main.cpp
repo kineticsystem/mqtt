@@ -7,7 +7,7 @@
 #include "mqtt/async_client.h"
 #include "proto/sensor.pb.h"
 
-#include <fstream>
+#include <array>
 #include <iostream>
 
 namespace {
