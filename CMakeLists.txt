@@ -14,9 +14,9 @@ set (THREADS_PREFER_PTHREAD_FLAG ON)
 add_subdirectory(proto)
 
 # Libraries.
-find_package(Protobuf REQUIRED) # Protobuf library.
-find_package(PahoMqttCpp)       # Paho MQTT client library
-find_package(Threads REQUIRED)  # PThread library required by both Protobuf and Paho.
+find_package(Protobuf REQUIRED)    # Protobuf library.
+find_package(PahoMqttCpp REQUIRED) # Paho MQTT client library
+find_package(Threads REQUIRED)     # PThread library required by both Protobuf and Paho.
 
 # Include directories.
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
@@ -29,5 +29,6 @@ add_executable(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     proto
     ${PROTOBUF_LIBRARY}
-    ${PAHO_CPP_LIB}
+    paho-mqttpp3
+    paho-mqtt3as
     pthread)
