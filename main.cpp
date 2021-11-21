@@ -33,14 +33,18 @@ constexpr auto PAYLOAD = "Hello World!";
  */
 int main() {
 
-  //  Sensor sensor;
-  //  sensor.set_name("Laboratory");
-  //  sensor.set_temperature(23.4);
-  //  sensor.set_humidity(68);
-  //  sensor.set_door(Sensor_SwitchLevel_OPEN);
+  // Create a Protobuf payload.
 
-  //  std::ofstream ofs("sensor.data", std::ios_base::out |
-  //  std::ios_base::binary); sensor.SerializeToOstream(&ofs);
+  Sensor sensor;
+  sensor.set_name("Laboratory");
+  sensor.set_temperature(23.4);
+  sensor.set_humidity(68);
+  sensor.set_door(Sensor_SwitchLevel_OPEN);
+
+  std::ofstream ofs("sensor.data", std::ios_base::out | std::ios_base::binary);
+  sensor.SerializeToOstream(&ofs);
+
+  // Initialize an MQTT client.
 
   mqtt::async_client client(DFLT_SERVER_ADDRESS, CLIENT_ID);
 
