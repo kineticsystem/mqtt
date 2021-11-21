@@ -51,7 +51,6 @@ There is no ready library for Ubuntu. We must compile the C library first and th
 ```
 git clone https://github.com/eclipse/paho.mqtt.c.git
 cd paho.mqtt.c
-git checkout v1.3.8
 
 cmake -Bbuild -H. -DPAHO_ENABLE_TESTING=OFF -DPAHO_BUILD_STATIC=ON \
     -DPAHO_WITH_SSL=ON -DPAHO_HIGH_PERFORMANCE=ON
