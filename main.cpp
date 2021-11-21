@@ -20,6 +20,9 @@ constexpr int QOS = 1;
 constexpr auto LWT_PAYLOAD = "Last will and testament.";
 constexpr auto TIMEOUT = std::chrono::seconds(10);
 
+// Adjust this value to match your maximum message size.
+constexpr size_t MAX_N_BYTES = 100;
+
 // Message content.
 constexpr auto PAYLOAD = "Hello World!";
 
@@ -33,6 +36,10 @@ constexpr auto PAYLOAD = "Hello World!";
  */
 int main() {
 
+  // Create a communication buffer.
+
+  std::array<uint8_t, MAX_N_BYTES> buffer{};
+
   // Create a Protobuf payload.
 
   Sensor sensor;
@@ -41,12 +48,10 @@ int main() {
   sensor.set_humidity(68);
   sensor.set_door(Sensor_SwitchLevel_OPEN);
 
-  size_t size = sensor.ByteSizeLong();
-  void *buffer = malloc(size);
-  sensor.SerializeToArray(buffer, size);
+  // Serialize the payload.
 
-  //  std::ofstream ofs("sensor.data", std::ios_base::out |
-  //  std::ios_base::binary); sensor.SerializeToOstream(&ofs);
+  auto size = static_cast<int>(sensor.ByteSizeLong());
+  sensor.SerializeToArray(buffer.data(), size);
 
   // Initialize an MQTT client.
 
@@ -66,7 +71,7 @@ int main() {
 
     // Send a message.
 
-    mqtt::message_ptr pubmsg = mqtt::make_message(TOPIC, buffer, size);
+    mqtt::message_ptr pubmsg = mqtt::make_message(TOPIC, buffer.data(), size);
     pubmsg->set_qos(QOS);
     client.publish(pubmsg)->wait_for(TIMEOUT);
 
