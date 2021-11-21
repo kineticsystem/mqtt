@@ -20,10 +20,17 @@ constexpr int QOS = 1;
 constexpr auto LWT_PAYLOAD = "Last will and testament.";
 constexpr auto TIMEOUT = std::chrono::seconds(10);
 
+// Message content.
 constexpr auto PAYLOAD = "Hello World!";
 
 } // namespace
 
+/**
+ * @brief This is a MQTT client example.
+ * To test this example, open a terminal and run a mosquito subscriber
+ * with the following command: "mosquitto_sub -h localhost -t test".
+ * Then execute this application.
+ */
 int main() {
 
   //  Sensor sensor;
