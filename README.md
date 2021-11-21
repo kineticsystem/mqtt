@@ -2,6 +2,8 @@
 
 This is an example of a client sending a Protobuf message over MQTT. For this implementation I've used Mosquitto message broker, MQTT Paho C++ library and Google Protobuf library.
 
+The simple application has been compiled and run on Ubuntu 20.04.
+
 ## Definitions
 
 ### MQTT
