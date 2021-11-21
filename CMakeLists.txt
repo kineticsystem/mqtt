@@ -23,7 +23,8 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # Executable.
 add_executable(${PROJECT_NAME}
-    main.cpp)
+    main.cpp
+    asynch_client.hpp)
 
 # Libraries.
 target_link_libraries(${PROJECT_NAME}
