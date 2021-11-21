@@ -41,8 +41,12 @@ int main() {
   sensor.set_humidity(68);
   sensor.set_door(Sensor_SwitchLevel_OPEN);
 
-  std::ofstream ofs("sensor.data", std::ios_base::out | std::ios_base::binary);
-  sensor.SerializeToOstream(&ofs);
+  size_t size = sensor.ByteSizeLong();
+  void *buffer = malloc(size);
+  sensor.SerializeToArray(buffer, size);
+
+  //  std::ofstream ofs("sensor.data", std::ios_base::out |
+  //  std::ios_base::binary); sensor.SerializeToOstream(&ofs);
 
   // Initialize an MQTT client.
 
@@ -62,7 +66,7 @@ int main() {
 
     // Send a message.
 
-    mqtt::message_ptr pubmsg = mqtt::make_message(TOPIC, PAYLOAD);
+    mqtt::message_ptr pubmsg = mqtt::make_message(TOPIC, buffer, size);
     pubmsg->set_qos(QOS);
     client.publish(pubmsg)->wait_for(TIMEOUT);
 
