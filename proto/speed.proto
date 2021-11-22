@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message Speed {
+  string name = 1;
+  double speed = 2;
+}

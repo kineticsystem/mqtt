@@ -14,7 +14,9 @@ find_package(Protobuf REQUIRED)
 # Include directories.
 include_directories(${PROTOBUF_INCLUDE_DIR})
 
-protobuf_generate_cpp(PROTO_SRC PROTO_HEADER sensor.proto)
+protobuf_generate_cpp(PROTO_SRC PROTO_HEADER
+    sensor.proto
+    speed.proto)
 
 # Create a library.
 add_library(${PROJECT_NAME}
