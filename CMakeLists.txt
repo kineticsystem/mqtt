@@ -24,8 +24,9 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 # Executable.
 add_executable(${PROJECT_NAME}
     asynch_client.hpp
+    default_asynch_client.hpp
     main.cpp
-    asynch_client.cpp
+    default_asynch_client.cpp
 )
 
 # Libraries.

@@ -1,4 +1,4 @@
-#include "asynch_client.hpp"
+#include "default_asynch_client.hpp"
 #include "proto/sensor.pb.h"
 
 #include <iostream>
@@ -26,7 +26,7 @@ int main() {
   sensor.set_door(Sensor_SwitchLevel_OPEN);
 
   // Initialize a client.
-  protobuf::AsynchClient client(DEFAULT_SERVER_ADDRESS, CLIENT_ID);
+  protobuf::DefaultAsynchClient client(DEFAULT_SERVER_ADDRESS, CLIENT_ID);
 
   // Connect to the MQTT broker, send a message and disconnect.
   try {

@@ -1,4 +1,4 @@
-#include "asynch_client.hpp"
+#include "default_asynch_client.hpp"
 
 #include <string>
 #include <vector>
@@ -12,17 +12,21 @@ constexpr auto TIMEOUT = std::chrono::seconds(10);
 } // namespace
 
 namespace protobuf {
-AsynchClient::AsynchClient(const std::string &serverURI,
-                           const std::string &clientId)
+DefaultAsynchClient::DefaultAsynchClient(const std::string &serverURI,
+                                         const std::string &clientId)
     : client_{mqtt::async_client{serverURI, clientId}} {
 
   connection_opts_ = mqtt::connect_options_builder().clean_session().finalize();
 }
 
-void AsynchClient::connect() { client_.connect(connection_opts_)->wait(); }
+void DefaultAsynchClient::connect() {
+  client_.connect(connection_opts_)->wait();
+}
 
-void AsynchClient::publish(const google::protobuf::Message &message,
-                           const std::string &topic) {
+void DefaultAsynchClient::disconnect() { client_.disconnect()->wait(); }
+
+void DefaultAsynchClient::publish(const google::protobuf::Message &message,
+                                  const std::string &topic) {
 
   // Resize the buffer to fit the message.
   const int size = message.ByteSizeLong();
